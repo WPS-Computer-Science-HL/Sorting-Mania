@@ -17,6 +17,7 @@ public class SortingShenanigans {
 
     public static void complexityAnalysis(String sortChoice, int arraySize, int testRuns) {
         //TEST RUNS HERE
+        System.out.println("New");
     }
 
     public static boolean bogoSort(ArrayList<Integer> sortMe) {
