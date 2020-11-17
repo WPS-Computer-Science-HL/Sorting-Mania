@@ -7,13 +7,7 @@ public class SortingShenanigans {
         //UI GOES HERE
 
         // TEST A change made
-        Random rand = new Random();
-        rand.setSeed(1);
-        ArrayList<Integer> test = new ArrayList<Integer>();
-        for(int i = 0; i < 10; i++) {
-            test.add(rand.nextInt(10));
-        }
-        heapSort(test);
+        
     }
 
     // TEST -b change made here
