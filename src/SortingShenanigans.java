@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Random;
 public class SortingShenanigans {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         //UI GOES HERE
 
         // TEST A change made
+        
     }
 
     // TEST -b change made here
@@ -44,8 +46,46 @@ public class SortingShenanigans {
         return false;
     }
 
-    public static boolean heapSort(ArrayList<Integer> sortMe) {
-        return false;
+    private static void swap(ArrayList<Integer> swapMe, int indexA, int indexB){
+        int temp = swapMe.get(indexA);
+        swapMe.set(indexA, swapMe.get(indexB));
+        swapMe.set(indexB, temp);
+    }
+
+    private static void heapify(ArrayList<Integer> heap, int index, int heapCap) {
+        int leftChildIndex = index * 2 + 1;
+        int rightChildIndex = index * 2 + 2;
+        int largest = index;
+        
+        if(leftChildIndex < heapCap && heap.get(leftChildIndex) > heap.get(largest)) {
+            largest = leftChildIndex;
+        } 
+
+        if(rightChildIndex < heapCap && heap.get(rightChildIndex) > heap.get(largest)) {
+            largest = rightChildIndex;
+        } 
+
+        if(largest != index) {
+            swap(heap, largest, index);
+        }
+    }
+
+    private static void heapify(ArrayList<Integer> heap, int heapCap) {
+        int start = (heapCap / 2) - 1;
+
+        for(int i = start; i >= 0; i--) {
+            heapify(heap, i, heapCap);
+        }
+    }
+
+    public static boolean heapSort(ArrayList<Integer> heap) throws Exception{
+        heapify(heap, heap.size());
+        for(int i = 0; i < heap.size(); i++) {
+            swap(heap, 0, heap.size() - i - 1);
+            heapify(heap, heap.size() - i - 1);
+        }
+        isSorted(heap);
+        return true;
     }
 
     private static void isSorted(ArrayList<Integer> testMe) throws Exception{
