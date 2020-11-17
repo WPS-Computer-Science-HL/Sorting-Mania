@@ -8,6 +8,7 @@ public class SortingShenanigans {
 
         // TEST A change made
         Random rand = new Random();
+        rand.setSeed(1);
         ArrayList<Integer> test = new ArrayList<Integer>();
         for(int i = 0; i < 10; i++) {
             test.add(rand.nextInt(10));
@@ -87,7 +88,7 @@ public class SortingShenanigans {
         heapify(heap, heap.size());
         for(int i = 0; i < heap.size(); i++) {
             swap(heap, 0, heap.size() - i - 1);
-            heapify(heap, 0, heap.size() - i - 1);
+            heapify(heap, heap.size() - i - 1);
         }
         isSorted(heap);
         return true;
