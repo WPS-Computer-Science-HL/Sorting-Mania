@@ -44,8 +44,46 @@ public class SortingShenanigans {
         return false;
     }
 
-    public static boolean heapSort(ArrayList<Integer> sortMe) {
-        return false;
+    public static void heapify(ArrayList<Integer> heap, int index, int heapCap) {
+        int leftChildIndex = index * 2 + 1;
+        int rightChildIndex = index * 2 + 2;
+
+        if(index >= heapCap) {
+            return;
+        } else if(heap.size() <= leftChildIndex) {
+            return;
+        } else if(heap.size() <= rightChildIndex) {
+            if(heap.get(leftChildIndex) > heap.get(index)) {
+                int temp = heap.get(leftChildIndex);
+                heap.set(leftChildIndex, heap.get(index));
+                heap.set(index, temp);
+            }
+            return;
+        } else {
+            if(heap.get(index) < heap.get(leftChildIndex) && heap.get(leftChildIndex) > heap.get(rightChildIndex)) {
+                int temp = heap.get(leftChildIndex);
+                heap.set(leftChildIndex, heap.get(index));
+                heap.set(index, temp);
+            } else if(heap.get(index) < heap.get(rightChildIndex)) {
+                int temp = heap.get(rightChildIndex);
+                heap.set(rightChildIndex, heap.get(index));
+                heap.set(index, temp);
+            }
+            heapify(heap, leftChildIndex, heapCap);
+            heapify(heap, rightChildIndex, heapCap);
+        }
+    }
+
+    public static boolean heapSort(ArrayList<Integer> heap) throws Exception{
+        heapify(heap, 0, heap.size());
+        for(int i = 0; i < heap.size(); i++) {
+            int temp = heap.get(0);
+            heap.set(0, heap.get(heap.size() - i - 1));
+            heap.set(heap.get(heap.size() - i - 1), temp);
+            heapify(heap, 0, heap.size() - i - 1);
+        }
+        isSorted(heap);
+        return true;
     }
 
     private static void isSorted(ArrayList<Integer> testMe) throws Exception{
