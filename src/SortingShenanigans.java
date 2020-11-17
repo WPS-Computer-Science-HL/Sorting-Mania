@@ -33,6 +33,15 @@ public class SortingShenanigans {
     }
 
     public static boolean insertionSort(ArrayList<Integer> sortMe) {
+        for(int i = 0; i < sortMe.size(); i++) {
+            int c = sortMe.get(i);
+            int p = i-1;
+            while (p > -1 && sortMe.get(p)>c){
+                sortMe.set(p+1, sortMe.get(p));
+                p--; 
+            }
+            sortMe.set(p+1, c);
+        }
         return false;
     }
 
