@@ -139,7 +139,7 @@ public class SortingShenanigans {
                             quickSort(items);
                             break;
                         case "Merge Sort":
-                            mergeSort(items);
+                            items = mergeSort(items);
                             break;
                         case "Heap Sort":
                             heapSort(items);
@@ -148,27 +148,34 @@ public class SortingShenanigans {
 
                     end = System.currentTimeMillis();
                     totalTime += end-start;
-                    System.out.println(">   Sorting time: " + (end-start) + "ms");
+                    System.out.println(">   Sorting time: " + (double)(end-start) + " ms");
                 }
                 
                 System.out.println();
                 System.out.println("All sort runs completed.");
                 System.out.println(
                     "Average sort time for " + colors[Arrays.asList(sorts).indexOf(selectedSort)] + totalElements + ANSI_RESET + " elements: " + 
-                    (int)(totalTime/totalRuns) + "ms"
+                    (double)(totalTime/totalRuns) + " ms"
                     );
                 
                 System.out.println( 
-                    "Average sort time per element: " + ((double)(totalTime/totalRuns)/totalElements) + "ms"
+                    "Average sort time per element: " + ((double)(totalTime/totalRuns)/totalElements) + " ms"
                 );
 
                 // TODO: Add complexity analysis here
 
                 System.out.println();
                 System.out.println("Press " + ANSI_PURPLE + "ENTER" + ANSI_RESET + " to restart program.");
+                System.out.println("Type " + ANSI_RED + "EXIT" + ANSI_RESET + " to quit program.");
                 input = in.nextLine();
-                input = "";
-                inputStage = 0;
+
+                if (input.toLowerCase().equals("exit")) {
+                    inputStage = 999;
+                }
+                else {
+                    input = "";
+                    inputStage = 0;
+                }
                 
             }
         }
@@ -180,7 +187,6 @@ public class SortingShenanigans {
         System.out.flush();
     }
 
-    // TEST -b change made here
 
     public static void complexityAnalysis(String sortChoice, int arraySize, int testRuns) {
         //TEST RUNS HERE
@@ -264,6 +270,7 @@ public class SortingShenanigans {
 
     }
 
+    
     public static ArrayList<Integer> mergeSort(ArrayList<Integer> sortMe) {
         // IF LIST IS 1 ELEMENT LONG RETURN INPUT
         if (sortMe.size() == 1) return sortMe;
