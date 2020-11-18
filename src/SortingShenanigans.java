@@ -162,6 +162,8 @@ public class SortingShenanigans {
                     "Average sort time per element: " + ((double)(totalTime/totalRuns)/totalElements) + "ms"
                 );
 
+                // TODO: Add complexity analysis here
+
                 System.out.println();
                 System.out.println("Press " + ANSI_PURPLE + "ENTER" + ANSI_RESET + " to restart program.");
                 input = in.nextLine();
