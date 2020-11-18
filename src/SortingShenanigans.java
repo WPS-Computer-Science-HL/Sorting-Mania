@@ -89,8 +89,49 @@ public class SortingShenanigans {
 
     }
 
-    public static boolean mergeSort(ArrayList<Integer> sortMe) {
-        return false;
+    public static ArrayList<Integer> mergeSort(ArrayList<Integer> sortMe) {
+        // IF LIST IS 1 ELEMENT LONG RETURN INPUT
+        if (sortMe.size() == 1) return sortMe;
+
+        // INITIALIZING
+        ArrayList<Integer> leftArray = new ArrayList<Integer>();
+        ArrayList<Integer> rightArray = new ArrayList<Integer>();
+        ArrayList<Integer> sortedArray = new ArrayList<Integer>();
+        int high = sortMe.size();
+
+        // CREATE LEFT AND RIGHT ARRAYS
+        for (int i = 0; i < high/2; i++) {
+          leftArray.add(sortMe.get(i));
+        }
+        for (int i = high/2; i < high; i++) {
+          rightArray.add(sortMe.get(i));
+        }
+
+        // MERGESORT BOTH ARRAYS
+        leftArray = mergeSort(leftArray);
+        rightArray = mergeSort(rightArray);
+
+        // MERGES BOTH ARRAYS
+        while (leftArray.isEmpty() && rightArray.isEmpty()) {
+            if (leftArray.get(0) > rightArray.get(0)) {
+                sortedArray.add(rightArray.get(0));
+                rightArray.remove(0);
+            } else {
+                sortedArray.add(leftArray.get(0));
+                leftArray.remove(0);
+            }
+        }
+        while (leftArray.isEmpty()) {
+            sortedArray.add(leftArray.get(0));
+            leftArray.remove(0);
+        }
+        while (rightArray.isEmpty()) {
+            sortedArray.add(rightArray.get(0));
+            rightArray.remove(0);
+        }
+
+        // RETURN RESULT
+        return sortedArray;
     }
 
     private static void swap(ArrayList<Integer> swapMe, int indexA, int indexB){
