@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.List;
+import java.util.Arrays;
+
 public class SortingShenanigans {
 
     public static final String ANSI_RESET = "\u001B[0m";
@@ -12,23 +15,32 @@ public class SortingShenanigans {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
+    public static final String[] colors = new String[]{
+        ANSI_BLACK, ANSI_PURPLE, ANSI_BLUE, ANSI_CYAN,
+        ANSI_GREEN, ANSI_YELLOW, ANSI_RED, 
+    };
+
+    public static final String[] sorts = new String[] {
+        "Bogo Sort", "Bubble Sort", "Selection Sort", "Insertion Sort",
+        "Quick Sort", "Merge Sort", "Heap Sort"
+    };
     public static void main(String[] args) {
         //UI GOES HERE
 
         Scanner in = new Scanner(System.in);
         String input = "";
         int inputStage = 0;
+
+        String selectedSort = "None";
+        int totalElements = 0;
         
         while (true) {
             if (inputStage == 0 || inputStage == 1) {
                 sysClear();
-                System.out.println("["+ANSI_BLACK+"1"+ANSI_RESET+"] " + "Bogo Sort");
-                System.out.println("["+ANSI_PURPLE+"2"+ANSI_RESET+"] " + "Bubble Sort");
-                System.out.println("["+ANSI_BLUE+"3"+ANSI_RESET+"] " + "Selection Sort");
-                System.out.println("["+ANSI_CYAN+"4"+ANSI_RESET+"] " + "Insertion Sort");
-                System.out.println("["+ANSI_GREEN+"5"+ANSI_RESET+"] " + "Quick Sort");
-                System.out.println("["+ANSI_YELLOW+"6"+ANSI_RESET+"] " + "Merge Sort");
-                System.out.println("["+ANSI_RED+"7"+ANSI_RESET+"] " + "Heap Sort");
+                for (int i=0; i < sorts.length; i++) {
+                    System.out.println("["+colors[Arrays.asList(sorts).indexOf(sorts[i])]+(i+1)+ANSI_RESET+"] " + sorts[i]);
+                }
+
                 System.out.println();
 
                 if (inputStage == 0) {
@@ -43,11 +55,37 @@ public class SortingShenanigans {
 
                 if (input.matches("[1-7]")) {
                     inputStage = 2;
+                    selectedSort = sorts[Integer.parseInt(input)-1];
                 }
                 else {
                     inputStage = 1;
                 }
 
+            }
+            else if (inputStage == 2 || inputStage == 3) {
+                sysClear();
+                System.out.println("Selected Sort: " + colors[Arrays.asList(sorts).indexOf(selectedSort)] + selectedSort + ANSI_RESET);
+                System.out.println();
+
+                if (inputStage == 3) {
+                    System.out.println(ANSI_RED+"Invalid input"+ANSI_RESET+".");
+                }
+                System.out.println("How many elements would you like to generate? " + ANSI_PURPLE);
+                input = in.nextLine();
+
+                if (input.matches("[0-9]+")) {
+                    totalElements = Integer.parseInt(input);
+                    inputStage = 4;
+                }
+                else {
+                    inputStage = 3;
+                }
+            }
+            else if (inputStage == 4) {
+                sysClear();
+                System.out.println("Selected Sort: " + colors[Arrays.asList(sorts).indexOf(selectedSort)] + selectedSort + ANSI_RESET);
+                System.out.println("Total Elements: " + ANSI_WHITE + totalElements + ANSI_RESET);
+                System.out.println();
             }
         }
         
