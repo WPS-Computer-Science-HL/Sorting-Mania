@@ -40,7 +40,12 @@ public class SortingShenanigans {
         return false;
     }
 
-    public static ArrayList<Integer> mergeSort(ArrayList<Integer> sortMe) {
+    public static boolean mergeSort(ArrayList<Integer> sortMe) {
+        sortMe = new ArrayList<Integer> (merge(sortMe));
+        return false;
+    }
+
+    public static ArrayList<Integer> merge(ArrayList<Integer> sortMe) {
         // IF LIST IS 1 ELEMENT LONG RETURN INPUT
         if (sortMe.size() == 1) return sortMe;
 
@@ -59,8 +64,8 @@ public class SortingShenanigans {
         }
 
         // MERGESORT BOTH ARRAYS
-        leftArray = mergeSort(leftArray);
-        rightArray = mergeSort(rightArray);
+        leftArray = merge(leftArray);
+        rightArray = merge(rightArray);
 
         // MERGES BOTH ARRAYS
         while (leftArray.isEmpty() && rightArray.isEmpty()) {
