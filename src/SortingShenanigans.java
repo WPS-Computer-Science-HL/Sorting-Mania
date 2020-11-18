@@ -5,14 +5,7 @@ public class SortingShenanigans {
 
     public static void main(String[] args) throws Exception{
         //UI GOES HERE
-        ArrayList<Integer> x = new ArrayList<>();
-        x.add(8);
-        x.add(0);
-        x.add(7);
-        x.add(2);
-        System.out.println(x);
-        quickSort(x);
-        System.out.println(x);
+
         // TEST A change made
         
     }
