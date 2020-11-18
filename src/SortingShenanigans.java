@@ -24,7 +24,7 @@ public class SortingShenanigans {
         "Bogo Sort", "Bubble Sort", "Selection Sort", "Insertion Sort",
         "Quick Sort", "Merge Sort", "Heap Sort"
     };
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         //UI GOES HERE
 
 
@@ -41,7 +41,7 @@ public class SortingShenanigans {
         long end;
         long totalTime = 0;
         
-        while (true) {
+        while (inputStage < 7) {
             if (inputStage == 0 || inputStage == 1) {
                 sysClear();
                 for (int i=0; i < sorts.length; i++) {
