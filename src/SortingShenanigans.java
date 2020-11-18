@@ -29,6 +29,18 @@ public class SortingShenanigans {
     }
 
     public static boolean selectionSort(ArrayList<Integer> sortMe) {
+        for(int i = 0; i < sortMe.size(); i++) {
+            int min = sortMe.get(0+i);
+            int ele = i;
+            for(int a = 0; a < sortMe.size() - i; a++) {
+                if(sortMe.get(i+a)<min){
+                    min = sortMe.get(i+a);
+                    ele = i+a;
+                }
+            }
+            sortMe.remove(ele);
+            sortMe.add(i, min);
+        }
         return false;
     }
 
