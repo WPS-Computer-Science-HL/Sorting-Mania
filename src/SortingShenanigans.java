@@ -59,8 +59,8 @@ public class SortingShenanigans {
         }
 
         // MERGESORT BOTH ARRAYS
-        leftArray = new ArrayList<Integer>(mergeSort(leftArray));
-        rightArray = new ArrayList<Integer>(mergeSort(rightArray));
+        leftArray = mergeSort(leftArray);
+        rightArray = mergeSort(rightArray);
 
         // MERGES BOTH ARRAYS
         while (leftArray.isEmpty() && rightArray.isEmpty()) {
