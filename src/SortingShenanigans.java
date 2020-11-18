@@ -31,10 +31,31 @@ public class SortingShenanigans {
     }
 
     public static boolean selectionSort(ArrayList<Integer> sortMe) {
+        for(int i = 0; i < sortMe.size(); i++) {
+            int min = sortMe.get(0+i);
+            int ele = i;
+            for(int a = 0; a < sortMe.size() - i; a++) {
+                if(sortMe.get(i+a)<min){
+                    min = sortMe.get(i+a);
+                    ele = i+a;
+                }
+            }
+            sortMe.remove(ele);
+            sortMe.add(i, min);
+        }
         return false;
     }
 
     public static boolean insertionSort(ArrayList<Integer> sortMe) {
+        for(int i = 0; i < sortMe.size(); i++) {
+            int c = sortMe.get(i);
+            int p = i-1;
+            while (p > -1 && sortMe.get(p)>c){
+                sortMe.set(p+1, sortMe.get(p));
+                p--; 
+            }
+            sortMe.set(p+1, c);
+        }
         return false;
     }
     public static void quickSort(ArrayList<Integer> sortMe) {
