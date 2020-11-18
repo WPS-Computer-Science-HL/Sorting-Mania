@@ -133,13 +133,7 @@ public class SortingShenanigans {
         // RETURN RESULT
         return sortedArray;
     }
-
-    private static void swap(ArrayList<Integer> swapMe, int indexA, int indexB){
-        int temp = swapMe.get(indexA);
-        swapMe.set(indexA, swapMe.get(indexB));
-        swapMe.set(indexB, temp);
-    }
-
+    
     private static void heapify(ArrayList<Integer> heap, int index, int heapCap) {
         int leftChildIndex = index * 2 + 1;
         int rightChildIndex = index * 2 + 2;
