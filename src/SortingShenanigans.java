@@ -314,28 +314,8 @@ public class SortingShenanigans {
         return sortedArray;
     }
 
-    private static void heapify(ArrayList<Integer> heap, int index, int heapCap) {
-        int leftChildIndex = index * 2 + 1;
-        int rightChildIndex = index * 2 + 2;
-        int largest = index;
-
-        if(leftChildIndex < heapCap && heap.get(leftChildIndex) > heap.get(largest)) {
-            largest = leftChildIndex;
-        }
-
-        if(rightChildIndex < heapCap && heap.get(rightChildIndex) > heap.get(largest)) {
-            largest = rightChildIndex;
-        }
-
-        if(largest != index) {
-            swap(heap, largest, index);
-        }
-    }
-
     private static void heapify(ArrayList<Integer> heap, int heapCap) {
-        int start = heap.size() - 1;
-
-        for(int i = start; i >= 0; i--) {
+        for(int i = (heap.size() / 2) - 1; i >= 0; i--) {
             siftDown(heap, i, heapCap);
         }
     }
