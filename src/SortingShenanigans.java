@@ -27,6 +27,7 @@ public class SortingShenanigans {
     };
     public static void main(String[] args) throws Exception{
         //UI GOES HERE
+
         ArrayList<Integer> items = new ArrayList<Integer>();
         Scanner in = new Scanner(System.in);
         String input = "";
@@ -39,7 +40,7 @@ public class SortingShenanigans {
         long start;
         long end;
         long totalTime = 0;
-
+        
         while (inputStage < 7) {
             if (inputStage == 0 || inputStage == 1) {
                 sysClear();
@@ -56,7 +57,7 @@ public class SortingShenanigans {
                     System.out.println(ANSI_RED+"Invalid input"+ANSI_RESET+".");
                     System.out.println("Which sort would you like to analyze? [1-7] " + ANSI_PURPLE);
                 }
-
+                
                 input = in.nextLine();
 
                 if (input.matches("[1-7]")) {
@@ -114,11 +115,16 @@ public class SortingShenanigans {
                     items.add(i);
                 }
 
-                for (int i=0; i<totalRuns; i++) {
+                long runCount = 1;
+                for (int i=0; i<totalRuns+1; i++) {
                     // Shuffle items
+                    if (i == 1) {
+                        continue;
+                    }
+                    System.out.print("\nReshuffling Arraylist...");
                     Collections.shuffle(items);
                     start = System.currentTimeMillis();
-                    System.out.println("\n"+colors[Arrays.asList(sorts).indexOf(selectedSort)] + selectedSort + ANSI_RESET + " run ["+colors[Arrays.asList(sorts).indexOf(selectedSort)]+(i+1)+ANSI_RESET+"]");
+                    System.out.println("\n"+colors[Arrays.asList(sorts).indexOf(selectedSort)] + selectedSort + ANSI_RESET + " run ["+colors[Arrays.asList(sorts).indexOf(selectedSort)]+(runCount)+ANSI_RESET+"]");
                     System.out.println(">   Sorting...");
 
                     Thread t = new Thread(new TimeManager(System.currentTimeMillis()));
@@ -141,10 +147,7 @@ public class SortingShenanigans {
                             quickSort(items);
                             break;
                         case "Merge Sort":
-
-
                             // Does not actually return sorted list ): because of final
-
                             items = mergeSort(items);
                             break;
                         case "Heap Sort":
@@ -156,29 +159,18 @@ public class SortingShenanigans {
                     t.interrupt();
     
                     totalTime += end-start;
-
-                    System.out.println(">   Sorting time: " + (double)(end-start) + " ms");
-
-
+                    runCount ++;
                 }
-
+                
                 System.out.println();
                 System.out.println();
                 System.out.println("All sort runs completed.");
                 System.out.println(
-
-                    "Average sort time for " + colors[Arrays.asList(sorts).indexOf(selectedSort)] + totalElements + ANSI_RESET + " elements: " +
-                    (double)(totalTime/totalRuns) + " ms"
-                    );
-
-                System.out.println(
-
                     "Average sort time for " + colors[Arrays.asList(sorts).indexOf(selectedSort)] + totalElements + ANSI_RESET + " elements: " + 
                     (double)(totalTime/totalRuns) + " ms"
                     );
                 
                 System.out.println( 
-
                     "Average sort time per element: " + ((double)(totalTime/totalRuns)/totalElements) + " ms"
                 );
 
@@ -196,10 +188,11 @@ public class SortingShenanigans {
                     input = "";
                     inputStage = 0;
                 }
+                
             }
         }
+        
     }
-
     public static void sysClear() {
         System.out.print("\033[H\033[2J" + "\u001B[0m");
         System.out.flush();
