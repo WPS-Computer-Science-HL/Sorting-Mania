@@ -27,7 +27,6 @@ public class SortingShenanigans {
     public static void main(String[] args) throws Exception{
         //UI GOES HERE
 
-
         ArrayList<Integer> items = new ArrayList<Integer>();
         Scanner in = new Scanner(System.in);
         String input = "";
@@ -267,10 +266,7 @@ public class SortingShenanigans {
 		}
 		swap(sortMe, low, split-1);
 		return split-1;
-
-    }
-
-    
+      
     public static ArrayList<Integer> mergeSort(ArrayList<Integer> sortMe) {
         // IF LIST IS 1 ELEMENT LONG RETURN INPUT
         if (sortMe.size() == 1) return sortMe;
@@ -290,11 +286,11 @@ public class SortingShenanigans {
         }
 
         // MERGESORT BOTH ARRAYS
-        leftArray = mergeSort(leftArray);
-        rightArray = mergeSort(rightArray);
+        leftArray = merge(leftArray);
+        rightArray = merge(rightArray);
 
         // MERGES BOTH ARRAYS
-        while (leftArray.isEmpty() && rightArray.isEmpty()) {
+        while (!leftArray.isEmpty() && !rightArray.isEmpty()) {
             if (leftArray.get(0) > rightArray.get(0)) {
                 sortedArray.add(rightArray.get(0));
                 rightArray.remove(0);
@@ -303,11 +299,11 @@ public class SortingShenanigans {
                 leftArray.remove(0);
             }
         }
-        while (leftArray.isEmpty()) {
+        while (!leftArray.isEmpty()) {
             sortedArray.add(leftArray.get(0));
             leftArray.remove(0);
         }
-        while (rightArray.isEmpty()) {
+        while (!rightArray.isEmpty()) {
             sortedArray.add(rightArray.get(0));
             rightArray.remove(0);
         }
