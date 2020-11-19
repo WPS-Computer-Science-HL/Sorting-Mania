@@ -118,8 +118,11 @@ public class SortingShenanigans {
                     // Shuffle items
                     Collections.shuffle(items);
                     start = System.currentTimeMillis();
-                    System.out.println(colors[Arrays.asList(sorts).indexOf(selectedSort)] + selectedSort + ANSI_RESET + " run ["+colors[Arrays.asList(sorts).indexOf(selectedSort)]+(i+1)+ANSI_RESET+"]");
+                    System.out.println("\n"+colors[Arrays.asList(sorts).indexOf(selectedSort)] + selectedSort + ANSI_RESET + " run ["+colors[Arrays.asList(sorts).indexOf(selectedSort)]+(i+1)+ANSI_RESET+"]");
                     System.out.println(">   Sorting...");
+
+                    Thread t = new Thread(new TimeManager(System.currentTimeMillis()));
+                    t.start();
 
                     switch (selectedSort) {
                         case "Bogo Sort":
@@ -138,6 +141,10 @@ public class SortingShenanigans {
                             quickSort(items);
                             break;
                         case "Merge Sort":
+
+
+                            // Does not actually return sorted list ): because of final
+
                             items = mergeSort(items);
                             break;
                         case "Heap Sort":
@@ -146,18 +153,32 @@ public class SortingShenanigans {
                     }
 
                     end = System.currentTimeMillis();
+                    t.interrupt();
+    
                     totalTime += end-start;
+
                     System.out.println(">   Sorting time: " + (double)(end-start) + " ms");
+
+
                 }
 
                 System.out.println();
+                System.out.println();
                 System.out.println("All sort runs completed.");
                 System.out.println(
+
                     "Average sort time for " + colors[Arrays.asList(sorts).indexOf(selectedSort)] + totalElements + ANSI_RESET + " elements: " +
                     (double)(totalTime/totalRuns) + " ms"
                     );
 
                 System.out.println(
+
+                    "Average sort time for " + colors[Arrays.asList(sorts).indexOf(selectedSort)] + totalElements + ANSI_RESET + " elements: " + 
+                    (double)(totalTime/totalRuns) + " ms"
+                    );
+                
+                System.out.println( 
+
                     "Average sort time per element: " + ((double)(totalTime/totalRuns)/totalElements) + " ms"
                 );
 
@@ -175,7 +196,6 @@ public class SortingShenanigans {
                     input = "";
                     inputStage = 0;
                 }
-
             }
         }
     }
@@ -191,7 +211,11 @@ public class SortingShenanigans {
     }
 
     public static boolean bogoSort(ArrayList<Integer> sortMe) {
-        return false;
+        while (isUnsorted(sortMe) != -1)
+        {
+            Collections.shuffle(sortMe);
+        }
+        return true;
     }
 
     public static boolean bubbleSort(ArrayList<Integer> sortMe) {
@@ -264,10 +288,8 @@ public class SortingShenanigans {
 			}
 		}
 		swap(sortMe, low, split-1);
-		return split-1;
-
+        return split-1;
     }
-
 
     public static ArrayList<Integer> mergeSort(ArrayList<Integer> sortMe) {
         // IF LIST IS 1 ELEMENT LONG RETURN INPUT
@@ -292,7 +314,7 @@ public class SortingShenanigans {
         rightArray = mergeSort(rightArray);
 
         // MERGES BOTH ARRAYS
-        while (leftArray.isEmpty() && rightArray.isEmpty()) {
+        while (!leftArray.isEmpty() && !rightArray.isEmpty()) {
             if (leftArray.get(0) > rightArray.get(0)) {
                 sortedArray.add(rightArray.get(0));
                 rightArray.remove(0);
@@ -301,11 +323,11 @@ public class SortingShenanigans {
                 leftArray.remove(0);
             }
         }
-        while (leftArray.isEmpty()) {
+        while (!leftArray.isEmpty()) {
             sortedArray.add(leftArray.get(0));
             leftArray.remove(0);
         }
-        while (rightArray.isEmpty()) {
+        while (!rightArray.isEmpty()) {
             sortedArray.add(rightArray.get(0));
             rightArray.remove(0);
         }
