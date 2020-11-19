@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
 import java.util.Arrays;
+import java.util.Random;
 
 public class SortingShenanigans {
 
@@ -17,7 +18,7 @@ public class SortingShenanigans {
 
     public static final String[] colors = new String[]{
         ANSI_BLACK, ANSI_PURPLE, ANSI_BLUE, ANSI_CYAN,
-        ANSI_GREEN, ANSI_YELLOW, ANSI_RED, 
+        ANSI_GREEN, ANSI_YELLOW, ANSI_RED,
     };
 
     public static final String[] sorts = new String[] {
@@ -26,7 +27,6 @@ public class SortingShenanigans {
     };
     public static void main(String[] args) throws Exception{
         //UI GOES HERE
-
         ArrayList<Integer> items = new ArrayList<Integer>();
         Scanner in = new Scanner(System.in);
         String input = "";
@@ -39,7 +39,7 @@ public class SortingShenanigans {
         long start;
         long end;
         long totalTime = 0;
-        
+
         while (inputStage < 7) {
             if (inputStage == 0 || inputStage == 1) {
                 sysClear();
@@ -56,7 +56,7 @@ public class SortingShenanigans {
                     System.out.println(ANSI_RED+"Invalid input"+ANSI_RESET+".");
                     System.out.println("Which sort would you like to analyze? [1-7] " + ANSI_PURPLE);
                 }
-                
+
                 input = in.nextLine();
 
                 if (input.matches("[1-7]")) {
@@ -141,7 +141,10 @@ public class SortingShenanigans {
                             quickSort(items);
                             break;
                         case "Merge Sort":
+
+
                             // Does not actually return sorted list ): because of final
+
                             items = mergeSort(items);
                             break;
                         case "Heap Sort":
@@ -153,17 +156,29 @@ public class SortingShenanigans {
                     t.interrupt();
     
                     totalTime += end-start;
+
+                    System.out.println(">   Sorting time: " + (double)(end-start) + " ms");
+
+
                 }
-                
+
                 System.out.println();
                 System.out.println();
                 System.out.println("All sort runs completed.");
                 System.out.println(
+
+                    "Average sort time for " + colors[Arrays.asList(sorts).indexOf(selectedSort)] + totalElements + ANSI_RESET + " elements: " +
+                    (double)(totalTime/totalRuns) + " ms"
+                    );
+
+                System.out.println(
+
                     "Average sort time for " + colors[Arrays.asList(sorts).indexOf(selectedSort)] + totalElements + ANSI_RESET + " elements: " + 
                     (double)(totalTime/totalRuns) + " ms"
                     );
                 
                 System.out.println( 
+
                     "Average sort time per element: " + ((double)(totalTime/totalRuns)/totalElements) + " ms"
                 );
 
@@ -181,14 +196,12 @@ public class SortingShenanigans {
                     input = "";
                     inputStage = 0;
                 }
-                
             }
         }
-        
     }
 
     public static void sysClear() {
-        System.out.print("\033[H\033[2J" + "\u001B[0m");  
+        System.out.print("\033[H\033[2J" + "\u001B[0m");
         System.out.flush();
     }
 
@@ -208,15 +221,15 @@ public class SortingShenanigans {
     public static boolean bubbleSort(ArrayList<Integer> sortMe) {
 
         int temp;
-        for (int i = 0; i < sortMe.size()-1; i++) 
-            for (int j = 0; j < sortMe.size()-i-1; j++) 
-                if (sortMe.get(j) > sortMe.get(j+1)) 
-                { 
-                    temp = sortMe.get(j); 
+        for (int i = 0; i < sortMe.size()-1; i++)
+            for (int j = 0; j < sortMe.size()-i-1; j++)
+                if (sortMe.get(j) > sortMe.get(j+1))
+                {
+                    temp = sortMe.get(j);
                     sortMe.set(j, sortMe.get(j+1));
                     sortMe.set(j+1, temp);
-                } 
-        
+                }
+
         return false;
     }
 
@@ -242,7 +255,7 @@ public class SortingShenanigans {
             int p = i-1;
             while (p > -1 && sortMe.get(p)>c){
                 sortMe.set(p+1, sortMe.get(p));
-                p--; 
+                p--;
             }
             sortMe.set(p+1, c);
         }
@@ -264,9 +277,9 @@ public class SortingShenanigans {
 
         int temp = sortMe.get(low);
         sortMe.set(low, sortMe.get(high));
-        sortMe.set(high, temp);		
+        sortMe.set(high, temp);
     }
-    
+
     public static int partition(ArrayList<Integer> sortMe, int low, int high){
         int split = low + 1;
 		for (int i = split; i <= high; i++) {
@@ -277,7 +290,7 @@ public class SortingShenanigans {
 		swap(sortMe, low, split-1);
         return split-1;
     }
-      
+
     public static ArrayList<Integer> mergeSort(ArrayList<Integer> sortMe) {
         // IF LIST IS 1 ELEMENT LONG RETURN INPUT
         if (sortMe.size() == 1) return sortMe;
@@ -322,38 +335,38 @@ public class SortingShenanigans {
         // RETURN RESULT
         return sortedArray;
     }
-    
-    private static void heapify(ArrayList<Integer> heap, int index, int heapCap) {
-        int leftChildIndex = index * 2 + 1;
-        int rightChildIndex = index * 2 + 2;
-        int largest = index;
-        
-        if(leftChildIndex < heapCap && heap.get(leftChildIndex) > heap.get(largest)) {
-            largest = leftChildIndex;
-        } 
 
-        if(rightChildIndex < heapCap && heap.get(rightChildIndex) > heap.get(largest)) {
-            largest = rightChildIndex;
-        } 
-
-        if(largest != index) {
-            swap(heap, largest, index);
+    private static void heapify(ArrayList<Integer> heap, int heapCap) {
+        for(int i = (heap.size() / 2) - 1; i >= 0; i--) {
+            siftDown(heap, i, heapCap);
         }
     }
 
-    private static void heapify(ArrayList<Integer> heap, int heapCap) {
-        int start = (heapCap / 2) - 1;
+    private static void siftDown(ArrayList<Integer> heap, int index, int heapCap) {
+      int leftChildIndex = index * 2 + 1;
+      int rightChildIndex = index * 2 + 2;
+      int largest = index;
 
-        for(int i = start; i >= 0; i--) {
-            heapify(heap, i, heapCap);
-        }
+      if(leftChildIndex < heapCap && heap.get(leftChildIndex) > heap.get(largest) && (rightChildIndex >= heapCap || heap.get(leftChildIndex) > heap.get(rightChildIndex))) {
+          largest = leftChildIndex;
+          swap(heap, largest, index);
+          siftDown(heap, leftChildIndex, heapCap);
+          return;
+      }
+
+      if(rightChildIndex < heapCap && heap.get(rightChildIndex) > heap.get(largest)) {
+          largest = rightChildIndex;
+          swap(heap, largest, index);
+          siftDown(heap, rightChildIndex, heapCap);
+          return;
+      }
     }
 
     public static boolean heapSort(ArrayList<Integer> heap) throws Exception{
         heapify(heap, heap.size());
         for(int i = 0; i < heap.size(); i++) {
             swap(heap, 0, heap.size() - i - 1);
-            heapify(heap, heap.size() - i - 1);
+            siftDown(heap, 0, heap.size() - i - 1);
         }
         isSorted(heap);
         return true;
