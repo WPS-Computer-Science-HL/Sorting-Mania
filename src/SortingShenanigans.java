@@ -118,8 +118,11 @@ public class SortingShenanigans {
                     // Shuffle items
                     Collections.shuffle(items);
                     start = System.currentTimeMillis();
-                    System.out.println(colors[Arrays.asList(sorts).indexOf(selectedSort)] + selectedSort + ANSI_RESET + " run ["+colors[Arrays.asList(sorts).indexOf(selectedSort)]+(i+1)+ANSI_RESET+"]");
+                    System.out.println("\n"+colors[Arrays.asList(sorts).indexOf(selectedSort)] + selectedSort + ANSI_RESET + " run ["+colors[Arrays.asList(sorts).indexOf(selectedSort)]+(i+1)+ANSI_RESET+"]");
                     System.out.println(">   Sorting...");
+
+                    Thread t = new Thread(new TimeManager(System.currentTimeMillis()));
+                    t.start();
 
                     switch (selectedSort) {
                         case "Bogo Sort":
@@ -138,6 +141,7 @@ public class SortingShenanigans {
                             quickSort(items);
                             break;
                         case "Merge Sort":
+                            // Does not actually return sorted list ): because of final
                             items = mergeSort(items);
                             break;
                         case "Heap Sort":
@@ -146,10 +150,12 @@ public class SortingShenanigans {
                     }
 
                     end = System.currentTimeMillis();
+                    t.interrupt();
+    
                     totalTime += end-start;
-                    System.out.println(">   Sorting time: " + (double)(end-start) + " ms");
                 }
                 
+                System.out.println();
                 System.out.println();
                 System.out.println("All sort runs completed.");
                 System.out.println(
@@ -192,7 +198,11 @@ public class SortingShenanigans {
     }
 
     public static boolean bogoSort(ArrayList<Integer> sortMe) {
-        return false;
+        while (isUnsorted(sortMe) != -1)
+        {
+            Collections.shuffle(sortMe);
+        }
+        return true;
     }
 
     public static boolean bubbleSort(ArrayList<Integer> sortMe) {
