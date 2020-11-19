@@ -4,7 +4,18 @@ public class SortingShenanigans {
 
     public static void main(String[] args) {
         //UI GOES HERE
+        ArrayList<Integer> x = new ArrayList<>();
+        x.add(3);
+        x.add(2);
+        x.add(8);
+        x.add(9);
+        x.add(8);
+        x.add(9);
+        x.add(8);
+        x.add(9);
 
+        x = merge(x);
+        System.out.println(x);
         // TEST A change made
     }
 
@@ -40,11 +51,6 @@ public class SortingShenanigans {
         return false;
     }
 
-    public static boolean mergeSort(ArrayList<Integer> sortMe) {
-        sortMe = new ArrayList<Integer> (merge(sortMe));
-        return false;
-    }
-
     public static ArrayList<Integer> merge(ArrayList<Integer> sortMe) {
         // IF LIST IS 1 ELEMENT LONG RETURN INPUT
         if (sortMe.size() == 1) return sortMe;
@@ -68,7 +74,7 @@ public class SortingShenanigans {
         rightArray = merge(rightArray);
 
         // MERGES BOTH ARRAYS
-        while (leftArray.isEmpty() && rightArray.isEmpty()) {
+        while (!leftArray.isEmpty() && !rightArray.isEmpty()) {
             if (leftArray.get(0) > rightArray.get(0)) {
                 sortedArray.add(rightArray.get(0));
                 rightArray.remove(0);
@@ -77,11 +83,11 @@ public class SortingShenanigans {
                 leftArray.remove(0);
             }
         }
-        while (leftArray.isEmpty()) {
+        while (!leftArray.isEmpty()) {
             sortedArray.add(leftArray.get(0));
             leftArray.remove(0);
         }
-        while (rightArray.isEmpty()) {
+        while (!rightArray.isEmpty()) {
             sortedArray.add(rightArray.get(0));
             rightArray.remove(0);
         }
