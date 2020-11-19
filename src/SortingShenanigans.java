@@ -265,7 +265,8 @@ public class SortingShenanigans {
 			}
 		}
 		swap(sortMe, low, split-1);
-		return split-1;
+        return split-1;
+    }
       
     public static ArrayList<Integer> mergeSort(ArrayList<Integer> sortMe) {
         // IF LIST IS 1 ELEMENT LONG RETURN INPUT
@@ -286,8 +287,8 @@ public class SortingShenanigans {
         }
 
         // MERGESORT BOTH ARRAYS
-        leftArray = merge(leftArray);
-        rightArray = merge(rightArray);
+        leftArray = mergeSort(leftArray);
+        rightArray = mergeSort(rightArray);
 
         // MERGES BOTH ARRAYS
         while (!leftArray.isEmpty() && !rightArray.isEmpty()) {
