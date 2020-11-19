@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
 import java.util.Arrays;
+import java.util.Random;
 
 public class SortingShenanigans {
 
@@ -26,8 +27,6 @@ public class SortingShenanigans {
     };
     public static void main(String[] args) throws Exception{
         //UI GOES HERE
-
-
         ArrayList<Integer> items = new ArrayList<Integer>();
         Scanner in = new Scanner(System.in);
         String input = "";
@@ -179,7 +178,6 @@ public class SortingShenanigans {
 
             }
         }
-
     }
 
     public static void sysClear() {
@@ -335,10 +333,10 @@ public class SortingShenanigans {
     }
 
     private static void heapify(ArrayList<Integer> heap, int heapCap) {
-        int start = (heapCap / 2) - 1;
+        int start = heap.size() - 1;
 
         for(int i = start; i >= 0; i--) {
-            heapify(heap, i, heapCap);
+            siftDown(heap, i, heapCap);
         }
     }
 
@@ -347,16 +345,18 @@ public class SortingShenanigans {
       int rightChildIndex = index * 2 + 2;
       int largest = index;
 
-      if(leftChildIndex < heapCap && heap.get(leftChildIndex) > heap.get(largest) && heap.get(leftChildIndex) > heap.get(rightChildIndex)) {
+      if(leftChildIndex < heapCap && heap.get(leftChildIndex) > heap.get(largest) && (rightChildIndex >= heapCap || heap.get(leftChildIndex) > heap.get(rightChildIndex))) {
           largest = leftChildIndex;
           swap(heap, largest, index);
           siftDown(heap, leftChildIndex, heapCap);
+          return;
       }
 
       if(rightChildIndex < heapCap && heap.get(rightChildIndex) > heap.get(largest)) {
           largest = rightChildIndex;
           swap(heap, largest, index);
           siftDown(heap, rightChildIndex, heapCap);
+          return;
       }
     }
 
