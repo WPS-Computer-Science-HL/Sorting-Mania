@@ -225,7 +225,7 @@ public class SortingShenanigans {
     public static String complexityAnalysis(String selectedSort) throws Exception{
         
 
-        int[] trialSizes = new int[]{10, 1000, 50000};
+        int[] trialSizes = new int[]{10, 100, 50000};
         long[] trialTimes = new long[]{0,0,0};
         long start;
         long end;
@@ -234,33 +234,40 @@ public class SortingShenanigans {
             trialSizes = new int[]{10, 50, 75};
         }
         else if (selectedSort.equals("Bubble Sort") || selectedSort.equals("Selection Sort") || selectedSort.equals("Insertion Sort")) {
-            trialSizes = new int[]{10, 1500, 5000};
+            trialSizes = new int[]{10, 100, 5000};
         } 
 
+        start = System.nanoTime()/100;
         for (int i=0; i<trialSizes.length; i++) {
 
             ArrayList<Integer> nums = generateRandomNumbers(trialSizes[i]);
-            start = System.nanoTime()/100;
             switch (selectedSort) {
                 case "Bogo Sort":
+                    start = System.nanoTime()/100;
                     bogoSort(nums);
                     break;
                 case "Bubble Sort":
+                    start = System.nanoTime()/100;
                     bubbleSort(nums);
                     break;
                 case "Selection Sort":
+                    start = System.nanoTime()/100;
                     selectionSort(nums);
                     break;
                 case "Insertion Sort":
+                    start = System.nanoTime()/100;
                     insertionSort(nums);
                     break;
                 case "Quick Sort":
+                    start = System.nanoTime()/100;
                     quickSort(nums);
                     break;
                 case "Merge Sort":
+                    start = System.nanoTime()/100;
                     nums = mergeSort(nums);
                     break;
                 case "Heap Sort":
+                    start = System.nanoTime()/100;
                     heapSort(nums);
                     break;
             }
@@ -323,6 +330,7 @@ public class SortingShenanigans {
         }
         return false;
     }
+    
     public static void quickSort(ArrayList<Integer> sortMe) {
 		quickSort(sortMe, 0, sortMe.size() -1);
 	}
