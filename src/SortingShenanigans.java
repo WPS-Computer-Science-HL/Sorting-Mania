@@ -286,6 +286,7 @@ public class SortingShenanigans {
     public static boolean bogoSort(ArrayList<Integer> sortMe) {
         while (isUnsorted(sortMe) != -1)
         {
+            //All it does is shuffle an ArrayList until it works
             Collections.shuffle(sortMe);
         }
         return true;
@@ -294,16 +295,17 @@ public class SortingShenanigans {
     public static boolean bubbleSort(ArrayList<Integer> sortMe) {
 
         int temp;
-        for (int i = 0; i < sortMe.size()-1; i++)
+        for (int i = 0; i < sortMe.size()-1; i++) {
             for (int j = 0; j < sortMe.size()-i-1; j++)
+                //Swaps numbers if needed
                 if (sortMe.get(j) > sortMe.get(j+1))
                 {
                     temp = sortMe.get(j);
                     sortMe.set(j, sortMe.get(j+1));
                     sortMe.set(j+1, temp);
                 }
-
-        return false;
+        }
+        return true;
     }
 
     public static boolean selectionSort(ArrayList<Integer> sortMe) {
@@ -311,6 +313,7 @@ public class SortingShenanigans {
             int min = sortMe.get(0+i);
             int ele = i;
             for(int a = 0; a < sortMe.size() - i; a++) {
+                //Find minimum value from unsorted part of ArrayList
                 if(sortMe.get(i+a)<min){
                     min = sortMe.get(i+a);
                     ele = i+a;
