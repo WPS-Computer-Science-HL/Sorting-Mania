@@ -339,8 +339,9 @@ public class SortingShenanigans {
         return true;
     }
     
-    public static void quickSort(ArrayList<Integer> sortMe) {
-		quickSort(sortMe, 0, sortMe.size() -1);
+    public static boolean quickSort(ArrayList<Integer> sortMe) {
+        quickSort(sortMe, 0, sortMe.size() -1);
+        return true;
 	}
     public static void quickSort(ArrayList<Integer> sortMe, int low, int high) {
         if (low < high+1) {
@@ -370,7 +371,12 @@ public class SortingShenanigans {
         return split-1;
     }
 
-    public static ArrayList<Integer> mergeSort(ArrayList<Integer> sortMe) {
+    public static boolean mergeSort(ArrayList<Integer> sortMe) {
+        sortMe = mergeSortRec(sortMe);
+        return true;
+    }
+
+    public static ArrayList<Integer> mergeSortRec(ArrayList<Integer> sortMe) {
         // IF LIST IS 1 ELEMENT LONG RETURN INPUT
         if (sortMe.size() == 1) return sortMe;
 
@@ -389,8 +395,8 @@ public class SortingShenanigans {
         }
 
         // MERGESORT BOTH ARRAYS
-        leftArray = mergeSort(leftArray);
-        rightArray = mergeSort(rightArray);
+        leftArray = mergeSortRec(leftArray);
+        rightArray = mergeSortRec(rightArray);
 
         // MERGES BOTH ARRAYS
         while (!leftArray.isEmpty() && !rightArray.isEmpty()) {
