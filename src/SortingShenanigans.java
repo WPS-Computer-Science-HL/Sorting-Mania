@@ -364,7 +364,6 @@ public class SortingShenanigans {
             swap(heap, 0, heap.size() - i - 1);
             siftDown(heap, 0, heap.size() - i - 1);
         }
-        isSorted(heap);
         return true;
     }
 
