@@ -163,7 +163,7 @@ public class SortingShenanigans {
                             quickSort(items);
                             break;
                         case "Merge Sort":
-                            items = mergeSort(items);
+                            mergeSort(items);
                             break;
                         case "Heap Sort":
                             heapSort(items);
@@ -268,7 +268,7 @@ public class SortingShenanigans {
                     break;
                 case "Merge Sort":
                     start = System.nanoTime()/100;
-                    nums = mergeSort(nums);
+                    mergeSort(nums);
                     break;
                 case "Heap Sort":
                     start = System.nanoTime()/100;
