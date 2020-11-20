@@ -1,7 +1,5 @@
 import java.math.BigInteger;
 
-import org.apache.commons.math3.stat.inference.ChiSquareTest;
-
 public class Analyser {
 
     long trialOne = 1;
@@ -51,11 +49,7 @@ public class Analyser {
         findRelative(factorial);
     }
 
-    public double[] getArr() {
-        return linear;
-    }
-
-    public static BigInteger factorial(BigInteger number) { 
+    private static BigInteger factorial(BigInteger number) { 
         if (number == BigInteger.ZERO || number == BigInteger.ONE) { 
             return BigInteger.ONE; 
         }
@@ -64,12 +58,10 @@ public class Analyser {
     } 
 
     private void findRelative(double[] input) {
+        // this and the next method just finds the relative time of each trial with trial1 being the baseline
         input[1] /= input[0];
         input[2] /= input[0];
         input[0] = 1;
-
-        
-
     }
 
     private void findRelative(long[] input) {
@@ -79,6 +71,8 @@ public class Analyser {
     }
 
     private double difference(double[] expected, long[] observed) {
+        // for each trial in observed, compare it to an expected time
+        // then square the difference for absolute value  
         double output = 0;
 
         for (int i = 0; i < observed.length; i++) {
@@ -89,8 +83,7 @@ public class Analyser {
     }
 
     public String test() {
-        ChiSquareTest test = new ChiSquareTest();
-
+        // finds the difference of the observed trial time to the expected trial time for each complexity
         double[] results = new double[] {
             difference(linear, trials),
             difference(constant, trials),
@@ -99,7 +92,9 @@ public class Analyser {
             difference(squared, trials),
             difference(factorial, trials)
         };
-        
+
+
+        // largest is actually the index expected time with the lowest difference
         int largest = 0;
         
         for ( int i = 1; i < results.length; i++ ) {
@@ -118,11 +113,11 @@ public class Analyser {
                 break;
 
             case 2:
-                output = "O(log(n))";
+                output = "O(Log(n))";
                 break;
 
             case 3:
-                output = "O(n*log(n))";
+                output = "O(n * Log(n))";
                 break;
 
             case 4:
