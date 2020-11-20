@@ -123,12 +123,12 @@ public class SortingShenanigans {
                     }
                     System.out.print("\nReshuffling Arraylist...");
                     Collections.shuffle(items);
-                    start = System.currentTimeMillis();
                     System.out.println("\n"+colors[Arrays.asList(sorts).indexOf(selectedSort)] + selectedSort + ANSI_RESET + " run ["+colors[Arrays.asList(sorts).indexOf(selectedSort)]+(runCount)+ANSI_RESET+"]");
                     System.out.println(">   Sorting...");
 
                     Thread t = new Thread(new TimeManager(System.currentTimeMillis()));
                     t.start();
+                    start = System.currentTimeMillis();
 
                     switch (selectedSort) {
                         case "Bogo Sort":
