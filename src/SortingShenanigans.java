@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
 import java.util.Arrays;
+import java.util.Random;
+
 
 public class SortingShenanigans {
 
@@ -363,7 +365,6 @@ public class SortingShenanigans {
             swap(heap, 0, heap.size() - i - 1);
             siftDown(heap, 0, heap.size() - i - 1);
         }
-        isSorted(heap);
         return true;
     }
 
@@ -389,6 +390,4 @@ public class SortingShenanigans {
         }
         return -1;
     }
-
-
 }
