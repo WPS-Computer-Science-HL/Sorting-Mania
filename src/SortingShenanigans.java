@@ -322,7 +322,7 @@ public class SortingShenanigans {
             sortMe.remove(ele);
             sortMe.add(i, min);
         }
-        return false;
+        return true;
     }
 
     public static boolean insertionSort(ArrayList<Integer> sortMe) {
@@ -330,12 +330,13 @@ public class SortingShenanigans {
             int c = sortMe.get(i);
             int p = i-1;
             while (p > -1 && sortMe.get(p)>c){
+                //moves everything that's greater than c to the left of it
                 sortMe.set(p+1, sortMe.get(p));
                 p--;
             }
             sortMe.set(p+1, c);
         }
-        return false;
+        return true;
     }
     
     public static void quickSort(ArrayList<Integer> sortMe) {
@@ -343,7 +344,7 @@ public class SortingShenanigans {
 	}
     public static void quickSort(ArrayList<Integer> sortMe, int low, int high) {
         if (low < high+1) {
-			int p = partition(sortMe, low, high);
+            int p = partition(sortMe, low, high);
 			quickSort(sortMe, low, p-1);
 			quickSort(sortMe, p+1, high);
 		}
@@ -358,6 +359,7 @@ public class SortingShenanigans {
     }
 
     public static int partition(ArrayList<Integer> sortMe, int low, int high){
+        //This moves everything greater than the split index to the right of it, otherwise to the left of it in the ArrayList
         int split = low + 1;
 		for (int i = split; i <= high; i++) {
 			if (sortMe.get(i) < sortMe.get(low)) {
@@ -392,6 +394,7 @@ public class SortingShenanigans {
 
         // MERGES BOTH ARRAYS
         while (!leftArray.isEmpty() && !rightArray.isEmpty()) {
+            //Adds left and right values in order till one of the arrays is empty
             if (leftArray.get(0) > rightArray.get(0)) {
                 sortedArray.add(rightArray.get(0));
                 rightArray.remove(0);
@@ -401,10 +404,12 @@ public class SortingShenanigans {
             }
         }
         while (!leftArray.isEmpty()) {
+            //Fills array with any lagging leftArray values
             sortedArray.add(leftArray.get(0));
             leftArray.remove(0);
         }
         while (!rightArray.isEmpty()) {
+            //Fills array with any lagging rightArray values
             sortedArray.add(rightArray.get(0));
             rightArray.remove(0);
         }
@@ -415,49 +420,42 @@ public class SortingShenanigans {
 
     private static void heapify(ArrayList<Integer> heap, int heapCap) {
         for(int i = (heap.size() / 2) - 1; i >= 0; i--) {
+            //This code goes through every parent-leaf of the heap and ensure that the parent is always greater than its children
             siftDown(heap, i, heapCap);
         }
     }
 
     private static void siftDown(ArrayList<Integer> heap, int index, int heapCap) {
-      int leftChildIndex = index * 2 + 1;
-      int rightChildIndex = index * 2 + 2;
-      int largest = index;
+        //Moves a value down to where it should be in the max-heap structure
+        int leftChildIndex = index * 2 + 1;
+        int rightChildIndex = index * 2 + 2;
+        int largest = index;
 
-      if(leftChildIndex < heapCap && heap.get(leftChildIndex) > heap.get(largest) && (rightChildIndex >= heapCap || heap.get(leftChildIndex) > heap.get(rightChildIndex))) {
-          largest = leftChildIndex;
-          swap(heap, largest, index);
-          siftDown(heap, leftChildIndex, heapCap);
-          return;
-      }
+        //These if-statements allow the largest values to be moved upwards in the heap structure
+        if(leftChildIndex < heapCap && heap.get(leftChildIndex) > heap.get(largest) && (rightChildIndex >= heapCap || heap.get(leftChildIndex) > heap.get(rightChildIndex))) {
+            largest = leftChildIndex;
+            swap(heap, largest, index);
+            siftDown(heap, leftChildIndex, heapCap);
+            return;
+        }
 
-      if(rightChildIndex < heapCap && heap.get(rightChildIndex) > heap.get(largest)) {
-          largest = rightChildIndex;
-          swap(heap, largest, index);
-          siftDown(heap, rightChildIndex, heapCap);
-          return;
-      }
+        if(rightChildIndex < heapCap && heap.get(rightChildIndex) > heap.get(largest)) {
+            largest = rightChildIndex;
+            swap(heap, largest, index);
+            siftDown(heap, rightChildIndex, heapCap);
+            return;
+        }
     }
 
-    public static boolean heapSort(ArrayList<Integer> heap) throws Exception{
+    public static boolean heapSort(ArrayList<Integer> heap) {
         heapify(heap, heap.size());
+        //The ArrayList needs to become a heap before you can heap sort it
         for(int i = 0; i < heap.size(); i++) {
             swap(heap, 0, heap.size() - i - 1);
             siftDown(heap, 0, heap.size() - i - 1);
         }
         return true;
     }
-
-    private static void isSorted(ArrayList<Integer> testMe) throws Exception{
-        //VALIDATE IF ARRAYLIST IS SORTED
-        for(int i = 1; i < testMe.size(); i++) {
-            if(testMe.get(i-1) > testMe.get(i)) {
-                throw new Exception("ArrayList unsorted, index i-1 > index i : " + testMe.get(i-1) + " > " + testMe.get(i));
-            }
-        }
-    }
-
-    // Modified Version
 
     private static int isUnsorted(ArrayList<Integer> testMe){
         //VALIDATE IF ARRAYLIST IS SORTED
