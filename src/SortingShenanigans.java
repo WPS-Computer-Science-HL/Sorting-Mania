@@ -2,9 +2,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
 import java.util.Arrays;
-import java.util.Random;
-import java.math.BigInteger;
-import org.apache.commons.math3.stat.inference.ChiSquareTest;
 
 public class SortingShenanigans {
 
