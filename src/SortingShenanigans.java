@@ -69,6 +69,7 @@ public class SortingShenanigans {
                 
                 input = in.nextLine();
 
+                // If the string only contains integers 1-7 (there are only 7 sorts)
                 if (input.matches("[1-7]")) {
                     inputStage = 2;
                     selectedSort = sorts[Integer.parseInt(input)-1];
@@ -91,6 +92,7 @@ public class SortingShenanigans {
                 System.out.println("How many elements would you like to generate? " + ANSI_PURPLE);
                 input = in.nextLine();
 
+                // If the string only contains integers 0-9
                 if (input.matches("[0-9]+")) {
                     totalElements = Integer.parseInt(input);
                     inputStage = 4;
@@ -113,6 +115,7 @@ public class SortingShenanigans {
                 System.out.println("How many test runs would you like to conduct? " + ANSI_PURPLE);
                 input = in.nextLine();
 
+                // If the string only contains integers 0-9
                 if (input.matches("[0-9]+")) {
                     totalRuns = Integer.parseInt(input);
                     inputStage = 6;
@@ -138,10 +141,12 @@ public class SortingShenanigans {
                     System.out.println("\n"+colors[Arrays.asList(sorts).indexOf(selectedSort)] + selectedSort + ANSI_RESET + " run ["+colors[Arrays.asList(sorts).indexOf(selectedSort)]+(runCount)+ANSI_RESET+"]");
                     System.out.println(">   Sorting...");
 
+                    // Start thread
                     Thread t = new Thread(new TimeManager(System.currentTimeMillis()));
                     t.start();
                     start = System.currentTimeMillis();
-
+                    
+                    // Sort elements with selected sort
                     switch (selectedSort) {
                         case "Bogo Sort":
                             bogoSort(items);
@@ -196,9 +201,11 @@ public class SortingShenanigans {
                 System.out.println("Type " + ANSI_RED + "EXIT" + ANSI_RESET + " to quit program.");
                 input = in.nextLine();
 
+                // Close program
                 if (input.toLowerCase().equals("exit")) {
                     inputStage = 999;
                 }
+                // By setting inputStage to 0, the user is reprompted from the start
                 else {
                     input = "";
                     inputStage = 0;
@@ -224,11 +231,9 @@ public class SortingShenanigans {
 
     public static String complexityAnalysis(String selectedSort) throws Exception{
         
-
         int[] trialSizes = new int[]{10, 100, 50000};
         long[] trialTimes = new long[]{0,0,0};
         long start;
-        long end;
 
         if (selectedSort.equals("Bogo Sort")) {
             trialSizes = new int[]{10, 50, 75};
@@ -271,7 +276,7 @@ public class SortingShenanigans {
                     heapSort(nums);
                     break;
             }
-            end = System.nanoTime()/100;
+            long end = System.nanoTime()/100;
             trialTimes[i] = end-start;
         }
 

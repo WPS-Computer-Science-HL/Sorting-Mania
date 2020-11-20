@@ -16,13 +16,16 @@ public class TimeManager implements Runnable {
 
     public void run() {
 
+        // While the thread hasn't been set to end
         while (!Thread.currentThread().isInterrupted()){
 
                 if (count > 2) {
+                    // This print statement removes the line before it and prints the new/extended time
                     System.out.print("\r>   Sorting Time: " + (System.currentTimeMillis()-this.startTime) + " ms");
                 }
                 
                 count ++;
-        }     
+        }
+     
     }
  }
