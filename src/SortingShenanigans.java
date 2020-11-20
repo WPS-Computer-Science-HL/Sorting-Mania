@@ -42,6 +42,9 @@ public class SortingShenanigans {
         long totalTime = 0;
         
         while (inputStage < 7) {
+            // Necessary loop in order to keep prompting user if
+            // bad input was given
+
             if (inputStage == 0 || inputStage == 1) {
                 sysClear();
                 for (int i=0; i < sorts.length; i++) {
