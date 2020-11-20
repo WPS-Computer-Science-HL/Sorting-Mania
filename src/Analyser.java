@@ -110,27 +110,27 @@ public class Analyser {
 
         switch(largest) {
             case 0:
-                output = "n";
+                output = "O(n)";
                 break;
 
             case 1:
-                output = "Constant";
+                output = "O(1)";
                 break;
 
             case 2:
-                output = "Log(n)";
+                output = "O(log(n))";
                 break;
 
             case 3:
-                output = "nLog(n)";
+                output = "O(n*log(n))";
                 break;
 
             case 4:
-                output = "n-squared";
+                output = "O(n^2)";
                 break;
 
             case 5:
-                output = "n!";
+                output = "O(n!)";
                 break;
 
             default:

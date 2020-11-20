@@ -41,11 +41,15 @@ public class SortingShenanigans {
         long start;
         long end;
         long totalTime = 0;
+
+        Analyser analyser;
         
         while (inputStage < 7) {
             // Necessary loop in order to keep prompting user if
             // bad input was given
 
+
+            // First stage. Asks for a sort
             if (inputStage == 0 || inputStage == 1) {
                 sysClear();
                 for (int i=0; i < sorts.length; i++) {
@@ -73,6 +77,8 @@ public class SortingShenanigans {
                 }
 
             }
+            
+            // Stage 2. Asks for number of elements
             else if (inputStage == 2 || inputStage == 3) {
                 sysClear();
                 System.out.println("Selected Sort: " + colors[Arrays.asList(sorts).indexOf(selectedSort)] + selectedSort + ANSI_RESET);
@@ -92,6 +98,8 @@ public class SortingShenanigans {
                     inputStage = 3;
                 }
             }
+
+            // Stage 3. Asks for number of test runs
             else if (inputStage == 4 || inputStage == 5) {
                 sysClear();
                 System.out.println("Selected Sort: " + colors[Arrays.asList(sorts).indexOf(selectedSort)] + selectedSort + ANSI_RESET);
@@ -112,12 +120,11 @@ public class SortingShenanigans {
                     inputStage = 5;
                 }
             }
+
+            // Stage 4. Runs designated sorts @ designated runs
             else if (inputStage == 6) {
                 System.out.println(ANSI_RESET+"Generating Elements...");
-                items.clear();
-                for (int i=0; i<totalElements; i++) {
-                    items.add(i);
-                }
+                items = generateRandomNumbers(totalElements);
 
                 long runCount = 1;
                 for (int i=0; i<totalRuns+1; i++) {
@@ -151,7 +158,6 @@ public class SortingShenanigans {
                             quickSort(items);
                             break;
                         case "Merge Sort":
-                            // Does not actually return sorted list ): because of final
                             items = mergeSort(items);
                             break;
                         case "Heap Sort":
@@ -178,7 +184,11 @@ public class SortingShenanigans {
                     "Average sort time per element: " + ((double)(totalTime/totalRuns)/totalElements) + " ms"
                 );
 
-                // TODO: Add complexity analysis here
+                // Complexity analysis printed here
+                System.out.println(
+                    colors[Arrays.asList(sorts).indexOf(selectedSort)] + selectedSort + ANSI_RESET + " time complexity: " +
+                    colors[Arrays.asList(sorts).indexOf(selectedSort)] + complexityAnalysis(selectedSort) + ANSI_RESET                    
+                );
 
                 System.out.println();
                 System.out.println("Press " + ANSI_PURPLE + "ENTER" + ANSI_RESET + " to restart program.");
@@ -202,9 +212,63 @@ public class SortingShenanigans {
         System.out.flush();
     }
 
+    public static ArrayList<Integer> generateRandomNumbers(int size) {
+        ArrayList<Integer> nums = new ArrayList<Integer>();
+        for (int i=0; i<size; i++) {
+            nums.add(i);
+        }
+        Collections.shuffle(nums);
+        return nums;
+    }
 
-    public static void complexityAnalysis(String sortChoice, int arraySize, int testRuns) {
-        //TEST RUNS HERE
+    public static String complexityAnalysis(String selectedSort) throws Exception{
+        
+
+        int[] trialSizes = new int[]{10, 1000, 50000};
+        long[] trialTimes = new long[]{0,0,0};
+        long start;
+        long end;
+
+        if (selectedSort.equals("Bogo Sort")) {
+            trialSizes = new int[]{10, 500, 1000};
+        }
+        else if (selectedSort.equals("Bubble Sort") || selectedSort.equals("Selection Sort") || selectedSort.equals("Insertion Sort")) {
+            trialSizes = new int[]{10, 1500, 5000};
+        } 
+
+        for (int i=0; i<trialSizes.length; i++) {
+
+            ArrayList<Integer> nums = generateRandomNumbers(trialSizes[i]);
+            start = System.nanoTime();
+            switch (selectedSort) {
+                case "Bogo Sort":
+                    bogoSort(nums);
+                    break;
+                case "Bubble Sort":
+                    bubbleSort(nums);
+                    break;
+                case "Selection Sort":
+                    selectionSort(nums);
+                    break;
+                case "Insertion Sort":
+                    insertionSort(nums);
+                    break;
+                case "Quick Sort":
+                    quickSort(nums);
+                    break;
+                case "Merge Sort":
+                    nums = mergeSort(nums);
+                    break;
+                case "Heap Sort":
+                    heapSort(nums);
+                    break;
+            }
+            end = System.nanoTime();
+            trialTimes[i] = end-start;
+        }
+
+        Analyser analyser = new Analyser(trialTimes, trialSizes[0], trialSizes[1], trialSizes[2]);
+        return analyser.test();
     }
 
     public static boolean bogoSort(ArrayList<Integer> sortMe) {
