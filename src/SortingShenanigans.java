@@ -230,7 +230,7 @@ public class SortingShenanigans {
         long end;
 
         if (selectedSort.equals("Bogo Sort")) {
-            trialSizes = new int[]{10, 500, 1000};
+            trialSizes = new int[]{10, 50, 75};
         }
         else if (selectedSort.equals("Bubble Sort") || selectedSort.equals("Selection Sort") || selectedSort.equals("Insertion Sort")) {
             trialSizes = new int[]{10, 1500, 5000};
@@ -239,7 +239,7 @@ public class SortingShenanigans {
         for (int i=0; i<trialSizes.length; i++) {
 
             ArrayList<Integer> nums = generateRandomNumbers(trialSizes[i]);
-            start = System.nanoTime();
+            start = System.nanoTime()/100;
             switch (selectedSort) {
                 case "Bogo Sort":
                     bogoSort(nums);
@@ -263,7 +263,7 @@ public class SortingShenanigans {
                     heapSort(nums);
                     break;
             }
-            end = System.nanoTime();
+            end = System.nanoTime()/100;
             trialTimes[i] = end-start;
         }
 
