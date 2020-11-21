@@ -1,5 +1,7 @@
 import java.math.BigInteger;
 
+import org.apache.commons.math3.stat.inference.ChiSquareTest;
+
 public class Analyser {
 
     long trialOne = 1;
@@ -70,31 +72,21 @@ public class Analyser {
         input[0] = 1;
     }
 
-    private double difference(double[] expected, long[] observed) {
-        // for each trial in observed, compare it to an expected time
-        // then square the difference for absolute value  
-        double output = 0;
-
-        for (int i = 0; i < observed.length; i++) {
-            output += Math.pow(observed[i] - expected[i], 2);
-        }
-
-        return output;
-    }
-
     public String test() {
-        // finds the difference of the observed trial time to the expected trial time for each complexity
+        // finds the Chi-squared test score of the observed trial time to the expected trial time for each complexity
+        ChiSquareTest test = new ChiSquareTest();
+
         double[] results = new double[] {
-            difference(linear, trials),
-            difference(constant, trials),
-            difference(log, trials),
-            difference(nlog, trials),
-            difference(squared, trials),
-            difference(factorial, trials)
+            test.chiSquare(linear, trials),
+            test.chiSquare(constant, trials),
+            test.chiSquare(log, trials),
+            test.chiSquare(nlog, trials),
+            test.chiSquare(squared, trials),
+            test.chiSquare(factorial, trials)
         };
 
 
-        // largest is actually the index expected time with the lowest difference
+        // largest is actually the index expected time with the lowest Chi-square statistic
         int largest = 0;
         
         for ( int i = 1; i < results.length; i++ ) {
