@@ -39,7 +39,7 @@ public class Analyser {
         log = new double[] {trialOne, Math.log(trialTwo), Math.log(trialThree)};
         findRelative(log);
 
-        nlog = new double[] {trialOne, trialTwo * Math.log10(trialTwo), trialTwo * Math.log10(trialThree)};
+        nlog = new double[] {trialOne, trialTwo * Math.log10(trialTwo), trialThree * Math.log10(trialThree)};
         findRelative(nlog);
 
         squared = new double[] {trialOne, Math.pow(trialTwo, 2), Math.pow(trialThree, 2)};
