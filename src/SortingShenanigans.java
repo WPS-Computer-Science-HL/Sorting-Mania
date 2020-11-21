@@ -237,7 +237,7 @@ public class SortingShenanigans {
 
         // Bogo sort will not finish using the standard trial sizes
         if (selectedSort.equals("Bogo Sort")) {
-            trialSizes = new int[]{10, 50, 75};
+            trialSizes = new int[]{1, 5, 10};
         }
 
         start = System.nanoTime()/100;
